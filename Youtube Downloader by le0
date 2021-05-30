@@ -1,0 +1,39 @@
+from colorama import init,Fore
+from pytube import YouTube 
+from slowprint.slowprint import * 
+init(autoreset=True)
+
+slowprint(Fore.LIGHTBLUE_EX + "[+]Youtube Downloader v.1 by Léonardo.",0.1)
+
+def YoutubeDownload():
+    global url 
+    global yt
+    global video
+    url = input(Fore.BLUE + "[+]Link : ")
+    yt = YouTube(url) 
+    print(Fore.LIGHTBLUE_EX + f"[+] Video : {yt.title}")
+
+    global userinput
+    userinput = input(Fore.BLUE + "[+] Mp3 indirmek için [1]\n[+]Mp4 indirmek için [2]\n[+]Programdan Çıkmak için [3]\n[+]İşleminiz : ")
+    if userinput == "1":
+        video = yt.streams.get_by_itag(140)
+        print(Fore.MAGENTA + "[...] Video İndiriliyor Lütfen Bekleyiniz...")
+        video.download() 
+    elif userinput == "2":
+        video = yt.streams.first()
+        video.download()
+    elif userinput == "3":
+        slowprint(Fore.LIGHTRED_EX + "Çıkış yapılıyor....",0,3)
+        quit()
+    else: 
+        print("[!]Sana verilen seçeneklerle idare et : ")
+
+while True:
+    try:
+        YoutubeDownload()
+    except:
+        print(Fore.RED + "[!]Hata")
+        continue 
+    else:
+        print(Fore.GREEN + "[+]Video İndirildi")
+        continue
